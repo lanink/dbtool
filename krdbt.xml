@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<krdbt>
+    <export>
+        <path>/Users/hefa/Downloads/krdbt</path>
+        <type>csv</type>
+    </export>
+
+    <datasource>
+        <source id="1" dbtype="mysql" host="127.0.0.1" port="3306" database="learn" table="user" user="learn" password="learn123" tag="1">
+            <cloums>
+                <cloum>id</cloum>
+                <cloum>name</cloum>
+                <cloum>age</cloum>
+                <cloum>sex</cloum>
+            </cloums>
+            <wheres>
+                <where>age>18</where>
+                <where>sex=1</where>
+            </wheres>
+        </source>
+
+        <source id="2" dbtype="sqlserver" host="192.168.13.23" port="1433" database="IMSP" table="CK_OITB" user="sa" password="pswd" tag="1">
+            <cloums>
+                <cloum>ID</cloum>
+                <cloum>ItmsGrpCod</cloum>
+                <cloum>ItmsGrpNam</cloum>
+                <cloum>Management</cloum>
+            </cloums>
+            <wheres>
+                <where>ID!=100</where>
+            </wheres>
+        </source>
+    </datasource>
+</krdbt>
