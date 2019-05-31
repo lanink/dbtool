@@ -19,14 +19,15 @@ public abstract class ExportDriver {
 
     public static ExportDriver getDriver(String type) throws ClassNotFoundException
     {
-        String t = type.toLowerCase();
-        if (t.equals(Export.CSV.getType())){
+        type = type.toLowerCase();
+
+        if (type.equals(Export.CSV.getType())){
             return CsvExport.getInstance();
         }else {
             throw new ClassNotFoundException(type + " is not supported！");
         }
     }
 
-    public abstract void export(String path, List<Map<String, Object>> data) throws IOException;
+    public abstract String export(Map<String, String> config ,List<Map<String, Object>> data) throws IOException;
 
 }

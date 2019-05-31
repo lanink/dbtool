@@ -27,26 +27,32 @@ public class CsvExport extends ExportDriver{
         return instance;
     }
 
-    public void export(String path, List<Map<String, Object>> data) throws IOException
+    public String export(Map<String, String> config ,List<Map<String, Object>> data) throws IOException
     {
 
-        String fileName = String.valueOf(System.currentTimeMillis());
+        String table = config.get("table");
+        String path = config.get("path");
+        String[] header = config.get("cloums").split(",");
+
+        String fileName = table + "_" +String.valueOf(System.currentTimeMillis());
 
         File file = createFile(path , fileName);
         
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(
-                file), "utf-8"), 1024);
+                file), "GB2312"), 1024);
 
 
         for (int i = 0; i < data.size(); i++) {
             Map<String, Object> map = data.get(i);
             if (i == 0) {
-                writerHeader(writer,map);
+                writerHeader(writer,header);
             }
-            writeRow(writer,map);
+            writeRow(writer,map,header);
         }
 
         writer.flush();
+
+        return file.getName();
 
     }
 
@@ -73,26 +79,28 @@ public class CsvExport extends ExportDriver{
         return file;
     }
 
-    public void writerHeader(BufferedWriter writer , Map<String, Object> map) throws IOException
+    public void writerHeader(BufferedWriter writer , String[] header) throws IOException
     {
         StringBuffer buffer;
-        for (Map.Entry<String, Object> item:map.entrySet()) {
+        for (int i = 0; i < header.length; i++) {
             buffer = new StringBuffer();
-            buffer.append(item.getKey() + "\t");
+            buffer.append(header[i].toLowerCase() + ",");
             writer.write(buffer.toString());
         }
 
         writer.newLine();
     }
     
-    public void writeRow(BufferedWriter writer , Map<String, Object> map) throws IOException
+    public void writeRow(BufferedWriter writer , Map<String, Object> map, String[] header) throws IOException
     {
         StringBuffer buffer;
-        for (Map.Entry<String, Object> item:map.entrySet()) {
+
+        for (int i = 0; i < header.length; i++) {
             buffer = new StringBuffer();
-            buffer.append(item.getValue() + "\t");
+            buffer.append(map.get(header[i]) + ",");
             writer.write(buffer.toString());
         }
+
         writer.newLine();
     }
 }

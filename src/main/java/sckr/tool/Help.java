@@ -5,10 +5,12 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import sckr.Krdbt;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.Console;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,6 +39,7 @@ public class Help {
 
             // source
             NodeList sources = document.getElementsByTagName("source");
+
             for (int i = 0; i < sources.getLength(); i++) {
                 Node source = sources.item(i);
                 Map<String, String> content = new HashMap<>();
@@ -61,25 +64,26 @@ public class Help {
                             if (isEmpty(split[k])) continue;
                             value.append(split[k].trim() + ",");
                         }
+                        value.deleteCharAt(value.length()-1);
                         content.put(nodeName , value.toString());
                     }
                 }
                 result.add(content);
             }
 
-            // export
-            NodeList export = document.getElementsByTagName("export");
-            NodeList childNodes = export.item(0).getChildNodes();
-            Map<String, String> content = new HashMap<>();
-            for (int i = 0; i < childNodes.getLength(); i++) {
-                Node item = childNodes.item(i);
-                if (item.getNodeType() == Node.ELEMENT_NODE){
-                    String nodeName = item.getNodeName();
-                    String nodeValue = item.getFirstChild().getNodeValue();
-                    content.put(nodeName, nodeValue);
-                }
-            }
-            result.add(content);
+//            // export
+//            NodeList export = document.getElementsByTagName("export");
+//            NodeList childNodes = export.item(0).getChildNodes();
+//            Map<String, String> content = new HashMap<>();
+//            for (int i = 0; i < childNodes.getLength(); i++) {
+//                Node item = childNodes.item(i);
+//                if (item.getNodeType() == Node.ELEMENT_NODE){
+//                    String nodeName = item.getNodeName();
+//                    String nodeValue = item.getFirstChild().getNodeValue();
+//                    content.put(nodeName, nodeValue);
+//                }
+//            }
+//            result.add(content);
         }catch (ParserConfigurationException e){
             e.printStackTrace();
         }catch (SAXException|IOException e){

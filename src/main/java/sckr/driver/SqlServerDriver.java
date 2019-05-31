@@ -18,6 +18,8 @@ import java.util.Map;
 
 public class SqlServerDriver extends DBDriver {
 
+    private String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+
     private String host;
 
     private String port;
@@ -50,7 +52,7 @@ public class SqlServerDriver extends DBDriver {
 
 
     @Override
-    public List<Map<String, Object>> runSQl(String sql) throws SQLException
+    public List<Map<String, Object>> runSQl(String sql) throws SQLException,ClassNotFoundException
     {
         Connection connection = getConnection();
 
@@ -78,9 +80,10 @@ public class SqlServerDriver extends DBDriver {
     }
 
 
-    private Connection getConnection() throws SQLException
+    private Connection getConnection() throws SQLException,ClassNotFoundException
     {
         Connection connection;
+        Class.forName(driver);
         connection = DriverManager.getConnection(getUrl(), user, password);
         if(connection.isClosed()){
             throw new SQLException("connect to sqlserver fail!");
