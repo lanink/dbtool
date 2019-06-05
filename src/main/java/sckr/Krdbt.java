@@ -32,7 +32,7 @@ public class Krdbt {
         if (null != console) {
             System.out.println("欢迎使用本软件");
             try{
-                run(console);
+                selectTool(console);
             }catch (Exception e){
                 e.printStackTrace();
                 System.out.println("发生了错误：" +  e.getCause());
@@ -220,6 +220,53 @@ public class Krdbt {
             return null;
         }
     }
+
+
+
+    private static void selectTool(Console console) throws Exception
+    {
+        System.out.println("请选择要使用的工具");
+        System.out.println("1\t生成entity+reposity");
+        System.out.println("其他\t从数据生成csv");
+        String s = readCmd(console);
+        if(s.toLowerCase().equals("exit")) return;
+        if (s.equals("1")){
+            ex(console);
+        }else {
+            run(console);
+        }
+    }
+
+    private static void ex(Console console)
+    {
+        while (true)
+        {
+            System.out.println("请输入建表语句文件地址");
+            String s = readCmd(console);
+            if(s.toLowerCase().equals("exit")) break;
+            File file = new File(s);
+
+            if (!file.exists()){
+                System.out.println("文件不存在！");
+                return;
+            }
+
+            System.out.println("请输入实体名称：");
+            if(s.toLowerCase().equals("exit")) break;
+            String name = readCmd(console);
+
+            System.out.println("请输入实体输出地址：");
+            if(s.toLowerCase().equals("exit")) break;
+            String path = readCmd(console);
+
+            Help.createFile(file, name , path);
+
+            System.out.println("完成！");
+        }
+
+
+    }
+
 
 
 
