@@ -18,5 +18,5 @@ cond2(yes,right)->op->e
 cond2(no)->io1 
 ```
 
-- [] index
+- [ ] index
 - [x] banner
