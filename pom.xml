@@ -12,7 +12,7 @@
     <properties>
         <java.version>1.8</java.version>
         <lombok.version>1.18.4</lombok.version>
-        <mysql.version>8.0.16</mysql.version>
+        <mysql.version>8.0.28</mysql.version>
         <sqlserver.version>7.2.2.jre8</sqlserver.version>
         <oracle.version>10.2.0.3.0</oracle.version>
         <postgresql.version>42.2.5</postgresql.version>
